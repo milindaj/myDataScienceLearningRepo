@@ -1,4 +1,4 @@
-pollutantmean <- function(directory, pollutant, id = 1:332) {
+ponllutantmean <- function(directory, pollutant, id = 1:332) {
   
   ## this function assumes that all the pollution monitoring data
   ## csv files are present under specdata folder under working directory
