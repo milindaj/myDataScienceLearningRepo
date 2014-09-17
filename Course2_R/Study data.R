@@ -273,3 +273,7 @@ fib <- function (x, n = 1, nPlusOne = 1) {
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3fa0048329fd769eb3b9af2d81a5903255427221
