@@ -32,7 +32,53 @@ SWM <- data.frame(c1 = c(NA, NA, 8, NA, 9, NA, 6, NA, NA),
 )
 
 
-solveSudoku <- function(df){
+
+solveSudoku <- function(sDF) {
+    solved <- solveSimpleSudoku(sDF)
+    
+    if (class(solved) == "logical") {
+        print("Unable to solve me")
+        solved <- solveComplexSudoku(sDF)
+    } else {
+        return (solved)
+    }
+    
+    
+}
+
+solveComplexSudoku <- function(df) {
+
+    for(r in 1:9) {        
+        for (c in 1:9) {
+            
+            cellValue <- sDF[[r,c]]
+            
+            if(is.na(cellValue)) {
+                c1 <- df[,c]
+                byCol <- (1:9)[-c1[!is.na(c1)]]
+                
+                r1 <- df[r,]
+                byRow <- (1:9)[-r1[!is.na(r1)]]
+                
+                fam <- getCellFamily(df, r, c)
+                byFam <- (1:9)[-fam[!is.na(fam)]]
+                
+                cellValue <- Reduce(intersect, list(byCol,byRow,byFam))                
+            }
+            ##print(cellValue)
+            if(length(cellValue) == 1){
+                df[[r,c]] <- cellValue                
+            } else {
+                for (i in seq_along())
+            }
+            
+            #print(paste(r, c, sep= ","), paste(cellValue, sep= " "), sep=" ")
+        }
+    }
+    
+}
+
+solveSimpleSudoku <- function(df){
 
     solveCount <- sum(is.na(df))
     solveCounterChanging <- TRUE
@@ -48,7 +94,7 @@ solveSudoku <- function(df){
         if(itr > 20) break
         if(solveCount == previousSolveCount) {
             print("NOT able to solve *********")
-            break
+            return (FALSE)
         }
         
         previousSolveCount = solveCount
