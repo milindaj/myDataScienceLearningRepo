@@ -230,3 +230,46 @@ Q1 -
 Q4 -
     
 abs(mean(mtcars[mtcars$cyl == 4, 4]) - mean(mtcars[mtcars$cyl == 8, 4]))
+
+n <- 1
+nPlusOne <- 1
+itr <- 1
+fibSeq <- c(n, nPlusOne)
+
+fib <- function (x) {
+    for(i in 2:x) {
+        tmp <- (n + nPlusOne)
+        n <- nPlusOne
+        nPlusOne <- tmp
+        fibSeq <<- c(fibSeq, nPlusOne)
+        ##print(fibSeq)
+    }
+}
+
+itr <- 0
+
+fib <- function (x, n = 1, nPlusOne = 1) {
+    if (x < 1) {
+        ##return (n + nPlusOne)
+        return (NULL)
+    } else {
+        tmp <- (n + nPlusOne)
+        n <- nPlusOne
+        nPlusOne <- tmp        
+        return (c(n, fib(x - 1, n, nPlusOne)))
+    }
+}
+
+
+
+
+    f<-function(x) {
+        if(x>2) {
+            d<-1+f(x/2)
+        } else {
+            d<-1
+        }
+        d
+    }
+
+
