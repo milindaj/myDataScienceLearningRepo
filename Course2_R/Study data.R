@@ -231,41 +231,46 @@ Q4 -
     
 abs(mean(mtcars[mtcars$cyl == 4, 4]) - mean(mtcars[mtcars$cyl == 8, 4]))
 
+n <- 1
+nPlusOne <- 1
+itr <- 1
+fibSeq <- c(n, nPlusOne)
 
-
-SW <- data.frame(c1 = c(1, NA, NA, NA, NA, 9, NA, 2, NA),
-                 c2 = c(NA, 7, NA, NA, NA, 6, NA, NA, 4),
-                 c3 = c(NA, NA, 3, 5, 1, NA, NA, NA, 8),
-                 c4 = c(NA, NA, 7, 2, NA, NA, NA, NA, 5),
-                 c5 = c(NA, 4, NA, NA, NA, 1, NA, 6, NA),
-                 c6 = c(8, NA, NA, 9, NA, NA, 3, NA, NA),
-                 c7 = c(2, 8, NA, NA, NA, 7, 9, NA, 1),
-                 c8 = c(NA, NA, 9, NA, NA, NA, NA, NA, NA),
-                 c9 = c(6, 5, NA, 3, NA, 4, NA, 8, NA)
-                 )
-
-getCellOptions <- function(df) {
-  updatedDf <- data.frame()
-  
-  for(r in 1:9) {
-    
-    for (c in 1:9) {
-      opts <- numeric()
-          for (i in 1:3) {
-            opts <- c(opts, floor(r/3) * 3 + i)
-          }
-          print(opts)
+fib <- function (x) {
+    for(i in 2:x) {
+        tmp <- (n + nPlusOne)
+        n <- nPlusOne
+        nPlusOne <- tmp
+        fibSeq <<- c(fibSeq, nPlusOne)
+        ##print(fibSeq)
     }
-    
-  }
-  
-  
-  ##return (updatedDf)
 }
 
-checkCellFamily <- function(df, r, c) {
-  cellValues <- 1:9
-  
-  
-  
+itr <- 0
+
+fib <- function (x, n = 1, nPlusOne = 1) {
+    if (x < 1) {
+        ##return (n + nPlusOne)
+        return (NULL)
+    } else {
+        tmp <- (n + nPlusOne)
+        n <- nPlusOne
+        nPlusOne <- tmp        
+        return (c(n, fib(x - 1, n, nPlusOne)))
+    }
 }
+
+
+
+
+    f<-function(x) {
+        if(x>2) {
+            d<-1+f(x/2)
+        } else {
+            d<-1
+        }
+        d
+    }
+
+
+
