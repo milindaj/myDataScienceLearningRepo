@@ -32,7 +32,59 @@ SWM <- data.frame(c1 = c(NA, NA, 8, NA, 9, NA, 6, NA, NA),
 )
 
 
-solveSudoku <- function(df){
+
+solveSudoku <- function(sDF) {
+    solved <- solveSimpleSudoku(sDF)
+    
+    if (class(solved) == "logical") {
+        print("Unable to solve me")
+        solved <- solveComplexSudoku(sDF)
+        return(solved)
+    } else {
+        return (solved)
+    }
+    
+    
+}
+
+solveComplexSudoku <- function(df) {
+    print("solveComplexSudoku called...")
+    for(r in 1:9) {        
+        for (c in 1:9) {
+            
+            cellValue <- df[[r,c]]
+            
+            if(is.na(cellValue)) {
+                c1 <- df[,c]
+                byCol <- (1:9)[-c1[!is.na(c1)]]
+                
+                r1 <- df[r,]
+                byRow <- (1:9)[-r1[!is.na(r1)]]
+                
+                fam <- getCellFamily(df, r, c)
+                byFam <- (1:9)[-fam[!is.na(fam)]]
+                
+                cellValue <- Reduce(intersect, list(byCol,byRow,byFam))                
+            }
+            ##print(cellValue)
+            if(length(cellValue) == 1){
+                df[[r,c]] <- cellValue                
+            } else {
+                print(cat("sequeing along the cell value of ", cellValue ))
+                for (i in seq_along(cellValue)){
+                    df[r,c] = cellValue[[i]]
+                    return(solveComplexSudoku(df))
+                }
+            }       
+            #print(paste(r, c, sep= ","), paste(cellValue, sep= " "), sep=" ")
+        }
+    }
+    print("solveComplexSudoku returning...")
+    return (df)
+    
+}
+
+solveSimpleSudoku <- function(df){
 
     solveCount <- sum(is.na(df))
     solveCounterChanging <- TRUE
@@ -45,10 +97,12 @@ solveSudoku <- function(df){
         itr <- itr + 1
         print (paste("solve iteration = ", itr, " solve count = ", solveCount, " ", sep = " "))
         print(df)
-        if(itr > 20) break
+        
+        if(itr > 200) return (FALSE)
+        
         if(solveCount == previousSolveCount) {
             print("NOT able to solve *********")
-            break
+            return (FALSE)
         }
         
         previousSolveCount = solveCount
@@ -78,11 +132,10 @@ getCellOptions <- function(df) {
                 
                 cellValue <- Reduce(intersect, list(byCol,byRow,byFam))                
             }
-            ##print(cellValue)
+            
             if(length(cellValue) == 1){
                 df[[r,c]] <- cellValue                
             }
-            #print(paste(r, c, sep= ","), paste(cellValue, sep= " "), sep=" ")
         }
     }
     return (df)
@@ -97,21 +150,3 @@ getCellFamily <- function(df, r, c) {
     dff <- df[rStart:rEnd, cStart:cEnd]
     return(c(dff[[1,1]], dff[[1, 2]], dff[[1, 3]], dff[[2,1]], dff[[2,2]], dff[[2,3]], dff[[3,1]], dff[[3,2]], dff[[3,3]]))
 }
-
-
-c1 <- SW[,1]
-
-byCol <- (1:9)[-c1[!is.na(c1)]]
-
-r1 <- SW[1,]
-
-byRow <- (1:9)[-r1[!is.na(r1)]]
-
-x <- c(SW[1:3, 1], SW[1:3, 2], SW[1:3, 3])
-
-byFam <- (1:9)[-x[!is.na(x)]]
-
-Reduce(intersect, list(byCol,byRow,byFam))
-
-
-paste(paste(1, 2, sep=","), paste(1:2, sep = " "), sep = " ")

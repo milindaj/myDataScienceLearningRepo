@@ -272,8 +272,19 @@ fib <- function (x, n = 1, nPlusOne = 1) {
         d
     }
 
+c1 <- SW[,1]
 
-<<<<<<< HEAD
-=======
+byCol <- (1:9)[-c1[!is.na(c1)]]
 
->>>>>>> 3fa0048329fd769eb3b9af2d81a5903255427221
+r1 <- SW[1,]
+
+byRow <- (1:9)[-r1[!is.na(r1)]]
+
+x <- c(SW[1:3, 1], SW[1:3, 2], SW[1:3, 3])
+
+byFam <- (1:9)[-x[!is.na(x)]]
+
+Reduce(intersect, list(byCol,byRow,byFam))
+
+
+paste(paste(1, 2, sep=","), paste(1:2, sep = " "), sep = " ")
