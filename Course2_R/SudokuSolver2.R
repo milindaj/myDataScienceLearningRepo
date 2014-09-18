@@ -35,7 +35,6 @@ SWM <- data.frame(c1 = c(NA, NA, 8, NA, 9, NA, 6, NA, NA),
 
 solveSudoku <- function(sDF) {
   solved <- solveSimpleSudoku(sDF)
-  solved <- FALSE
   if (class(solved) == "logical") {
     #print("Unable to solve me")
     solved <- solveComplexSudoku(sDF)
