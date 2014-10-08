@@ -46,8 +46,8 @@ htmlTreeParse(readLines(f))
 
 
 '<div class="offer-name">
-  <a href="http://www.somesite.com" itemprop="name">Fancy Product</a>
-  </div>' -> xData
+<a href="http://www.somesite.com" itemprop="name">Fancy Product</a>
+</div>' -> xData
 library(XML)
 parsedHTML <- xmlParse(xData)
 Products <- xpathSApply(parsedHTML, "//div[@class='offer-name']", xmlValue) 
@@ -56,7 +56,7 @@ hrefs <- xpathSApply(parsedHTML, "//div/a", xmlGetAttr, 'href')
 
 ## Download file chapter
 if(!file.exists("data")) {
-    dir.create("data")
+  dir.create("data")
 }
 
 
@@ -137,5 +137,17 @@ rootNode <- xmlRoot(doc)
 zips <- xpathSApply(rootNode, "//zipcode", xmlValue)
 xpathSApply(rootNode, "//price", xmlValue)
 
+#Q5
 
+q5FileUrl<- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv"
+download.file(qFileUrl, destfile="./data/acs.csv", method="curl")
+ACS <- read.table("./data/acs.csv", sep=",", head = TRUE)
+head(ACS)
 
+system.time( {
+  
+  for(i in 1:10000) {
+    DT[,mean(pwgtp15),by=SEX]
+  }
+  
+})
