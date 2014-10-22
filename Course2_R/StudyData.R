@@ -301,3 +301,20 @@ mtcars$carname <- rownames(mtcars)
 
 carMelt <- melt(mtcars, id=c("carname", "gear", "cyl"), measure.vars=c("mpg", "hp"))
 
+
+## course project
+
+fileLoc <- "D:/work/r/Class_Data/data/UCI HAR Dataset/train/X_train.txt"
+
+colClasses <- c(rep("numeric", 561))
+
+xTrain <- read.table(fileLoc, sep = " ", colClasses = colClasses, nrow = 1)
+
+
+
+fileLoc2 <- "D:/work/r/Class_Data/data/UCI HAR Dataset/train/X_train2.txt"
+
+widths <- c(rep(16, 531))
+xTrain2 <- read.fwf(fileLoc, widths, n = 1000)
+
+
