@@ -1,9 +1,8 @@
----
-title: "Code book"
-author: "milindaj"
-date: "October 23, 2014"
-output: html_document
----
+Code book
+====================
+
+milindaj (October 23, 2014)
+---------------------
 
 This code book contains details on the variables in R script(run_analysis.R), input data, steps in data transofomation
 
@@ -87,3 +86,7 @@ The data transformations needed to produce the tidy data involve below steps
 7. subset the combined dataset to include only mean and std variables along with Activity and Subject columns and create the tidy data set
 8. To generate the tidy data set with average of variables across Activity Label and Subject, first melt the tidy data set created in above step using melt() function in reshape2 package followed by decasting it with mean() function using dcast function
 9. Write out the dataset created in step above to a text file
+
+1.  Red
+2.  Green
+3.  Blue
